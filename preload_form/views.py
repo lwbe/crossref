@@ -15,30 +15,35 @@ def done(request):
 def get_crossref(request,doi=""):
     # on recupere un objet crossref pour faire le requetage
     cr = Crossref()
-    #doi = 'doi:10.1038/nature25767'
-    print('doi=',doi)
-    # initialisation du json
-    d = {'authors':'Authors',
-         'title':'Title',
-         'published':'Published',
-         'doi':'DOI',
-         'page':'Page'}
+    
 
     # on recupere les donnes associees au DOI si le doi ne correspond a rien
     # on a une erreur d'ou le try except
     try:
         data = cr.works(ids=doi)
     except:
-        data =[]
+        # la reponse retournee est un json vide
+        d={}
 
     # si il y a quelque chose on rempli les donnees
     if data:
+        # initialisation du json
+        d = {'authors':'',
+             'title':'',
+             'published':'',
+             'doi':'',
+             'page':''}
+        
         m = data['message']
-        d['authors'] = ":".join(["%s %s" % (i['given'], i['family']) for i in m['author']])
-        d['published'] = "/".join(map(str, m['issued']['date-parts'][0]))
-        d['title'] = m['title'][0]
+        if m.get('author'):
+            d['authors'] = ":".join(["%s %s" % (i['given'], i['family']) for i in m['author']])
+        if m.get('issued'):
+            d['published'] = "/".join(map(str, m['issued']['date-parts'][0]))
+        if m.get('title'):
+            d['title'] = m['title'][0]
         for k in ['DOI', 'publisher', 'page']:
-            d[k.lower()] = m[k]
+             if m.get(k):
+                 d[k.lower()] = m[k]
 
 
     # just return a JsonResponse
