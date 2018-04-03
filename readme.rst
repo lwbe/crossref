@@ -14,25 +14,21 @@ Pour faire la requete sur le site de crossref j'utilise le module python habaner
 Installation
 ------------
 
-On récupère l'archive par
+On récupère l'archive par::
 
-.. code-block:: bash
-  git clone https://github.com/lwbe/crossref.git
+    git clone https://github.com/lwbe/crossref.git
 
-Ensuite on crée un environement virtuel et on installe les modules python (django habanero (qui permet de faire des requetes rest sur crossref en python )) par
+Ensuite on crée un environement virtuel et on installe les modules python (django habanero (qui permet de faire des requetes rest sur crossref en python )) par::
 
-
-.. code-block:: bash
-   python3.6 -m venv venv/crossref
-   source venv/crossref/bin/activate
-   pip install -r docs/requirements.txt 
-   pip install --upgrade pip
-   ./manage.py runserver
+     python3.6 -m venv venv/crossref
+     source venv/crossref/bin/activate
+     pip install -r docs/requirements.txt 
+     pip install --upgrade pip
+     ./manage.py runserver
 
 
-puis il faut aller sur 
+puis il faut aller sur::
 
-.. code-block:: bash
-   http://localhost:8000/start
+     http://localhost:8000/start
   
-et rentrer un doi 
+et rentrer un DOI 
